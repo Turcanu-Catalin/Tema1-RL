@@ -27,5 +27,4 @@ verificam daca vlanul portului corespunde cu vlanul frame-ului.
 Daca dest_mac este insa o adresa de broadcast, facem transmiterea aparte de conditia 
 pentru unicast , facand o la fel ca la al doilea caz de acolo.
 
-PS: Am lucrat mult la STP insa nu s a primit intr un final ,ceea ce nu am inteles de ce nici pana acum :(
 
