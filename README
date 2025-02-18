@@ -1,0 +1,31 @@
+1.Tabela de Comutare
+Switchul implementeaza o tabela MAC ce asociaza adrese MAC cu porturile
+de intrare, facilitand rutarea cadrelor catre destinatie
+La receptia unui cadru, adresa MAC sursa este inregistrata in tabela
+cu portul de intrare, iar daca adresa mac destinatie se gaseste , trimitem cadrul
+pe portul asociat, in caz contrar se face broadcast si trimitem frame-ul pe toate
+porturile mai putin cel pe care a venit.M am folosit de pseudocodul din tema mult aici.
+
+2.VLAN
+Aici am modificat codul de la punctul 1 ,adaugand si o bucata pentru primirea cadrelor.
+La primire:
+Verificam daca cadrul este primit pe un port trunk, atunci acesta are deja
+un tag vlan, care trebuie eliminat inainte de procesare pentru ca datele sa poata
+fi procesate dupa standart.
+Daca insa cadrul e primitpe un port de tip acces, extragem vlanul asociat din vlan_table
+
+La transmitere:
+Verificam ca la punctul anterior daca adresa e de tip unicast.
+Se cauta MAC destinatie.daca il gasim identificam si portul destinatie si dupa
+verificam tipul acestui port.Daca el este de tip trunk ,frame-ul primeste un tag vlan
+astfel incat switchul sa-l transmita corect pe retea.Daca insa este acces, verificam daca
+vlanul portului corespunde cu vlanul frame-ului.
+Daca nu gasim MAC destinatie, trimitem frame-ul in mod broadcast pe toate porturile
+mai putin pe cel de intrare si din nou ,daca cadrul este de tip trunk ,primeste un tag 
+vlan astfel incat switchul sa-l transmita corect pe retea.Daca insa este acces, 
+verificam daca vlanul portului corespunde cu vlanul frame-ului.
+Daca dest_mac este insa o adresa de broadcast, facem transmiterea aparte de conditia 
+pentru unicast , facand o la fel ca la al doilea caz de acolo.
+
+PS: Am lucrat mult la STP insa nu s a primit intr un final ,ceea ce nu am inteles de ce nici pana acum :(
+
